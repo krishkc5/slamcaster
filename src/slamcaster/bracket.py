@@ -12,6 +12,10 @@
      player_id: int | None = None
  
  
+def is_bye(entry: DrawEntry) -> bool:
+    return str(entry.player_name).strip().upper() == "BYE"
+
+
  def validate_power_of_two(n: int) -> None:
      if n <= 1 or (n & (n - 1)) != 0:
          raise ValueError(f"draw_size must be a power of two, got {n}")
