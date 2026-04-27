@@ -150,3 +150,25 @@ Columns:
 - `winner_id_optional`, `loser_id_optional`
 - `winner_seed`, `loser_seed`
 - `score`, `best_of`, `match_date_optional`
+
+## Automatic draw ingestion
+
+This supplements (does not replace) manual draw entry. The parser will **not** invent bracket order; if confidence is low it writes a `*.partial.csv` and exits.
+
+Example:
+
+```bash
+python scripts/ingest_draw.py \
+  --source-url "OFFICIAL_DRAW_PDF_URL_HERE" \
+  --tournament "US Open" \
+  --year 2025 \
+  --draw-size 128 \
+  --parser usopen_pdf \
+  --output data/draws/us_open_2025_mens.csv
+```
+
+Then validate:
+
+```bash
+python scripts/validate_draw.py --draw data/draws/us_open_2025_mens.csv --check-known-names
+```
